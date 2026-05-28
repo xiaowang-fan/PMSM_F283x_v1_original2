@@ -1,0 +1,19 @@
+# 忽略 CCS 编译输出的文件夹
+/Debug/
+/Release/
+
+# 忽略编译生成的临时与二进制文件
+*.obj
+*.d
+*.out
+*.map
+*.hex
+*.bin
+*.lkf
+
+# 忽略 Eclipse/CCS 的本地个人设置与缓存
+.launches/
+.settings/
+.metadata/
+dvt/
+RemoteSystemsTempFiles/
