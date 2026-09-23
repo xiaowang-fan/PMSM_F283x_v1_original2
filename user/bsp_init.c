@@ -24,19 +24,17 @@ void BSP_Init(void)
     InitSysCtrl();  //200M
 
     Init_Clocks();
-//    Init_EQep_GPIO();
 
     Init_EPWM();
     ConfigureADC();
 //    Init_can();
     Init_sci();
-//    ConfigureADC();
+
 //    Init_LED_GPIO();
 //    Init_GPIO_OUTPUT();
     Init_EQep_GPIO();
 //
-//    ConfigureADC();
-//    Init_EQep_GPIO();
+
 //    configureDAC(1);
 //    configureDAC(2);
 //    configureDAC(3);

@@ -15,9 +15,9 @@ void Init_EPWM()
     Init_EPWM1_GPIO();
     Init_EPWM2_GPIO();
     Init_EPWM3_GPIO();
-    Init_EPWM4_GPIO();
-    Init_EPWM5_GPIO();
-    Init_EPWM6_GPIO();
+//    Init_EPWM4_GPIO();
+//    Init_EPWM5_GPIO();
+//    Init_EPWM6_GPIO();
 
     EALLOW;
     CpuSysRegs.PCLKCR0.bit.TBCLKSYNC = 0;
@@ -115,7 +115,7 @@ void InitEPwm1()
     /* setup EPWM1 interrupt */
 
     EPwm1Regs.ETSEL.bit.INTSEL     = ET_CTR_ZERO;      // Select INT on Zero event
-    EPwm1Regs.ETSEL.bit.INTEN      = 1;                // Enable INT
+    EPwm1Regs.ETSEL.bit.INTEN      = 1;                // enable INT
     EPwm1Regs.ETPS.bit.INTPRD      = ET_1ST;           // Generate INT on 1rd event
     EPwm1Regs.ETCLR.bit.INT        = 1;
 
@@ -124,7 +124,7 @@ void InitEPwm1()
     EALLOW;
 
     EPwm1Regs.ETSEL.bit.SOCAEN     = 1;                // Disable SOC on A group
-    EPwm1Regs.ETSEL.bit.SOCASEL    = 1;                // Select SOC on zero
+    EPwm1Regs.ETSEL.bit.SOCASEL    = 2;                // Select SOC on prd
     EPwm1Regs.ETPS.bit.SOCAPRD     = 1;                // Generate pulse on 1st event
 
     EDIS;
@@ -188,7 +188,7 @@ void InitEPwm2()
 
     //
     // Active Low PWMs - Setup Deadband
-    //
+
     EPwm2Regs.DBCTL.bit.OUT_MODE = DB_FULL_ENABLE;
     EPwm2Regs.DBCTL.bit.POLSEL = DB_ACTV_HIC;//DB_ACTV_LO;
     EPwm2Regs.DBCTL.bit.IN_MODE = DBA_ALL;

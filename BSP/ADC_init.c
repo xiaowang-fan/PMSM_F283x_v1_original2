@@ -88,75 +88,58 @@ void SetupADCSoftware(void)
 {
     Uint16 acqps=14;//14;
 
-    //
     //Select the channels to convert and end of conversion flag
     //ADCA
     EALLOW;
 
-    AdcaRegs.ADCSOC0CTL.bit.CHSEL = 3;  //SOC0 will convert pin A3 ---> current D
-    AdcaRegs.ADCSOC0CTL.bit.ACQPS = acqps; //
-    AdcaRegs.ADCSOC0CTL.bit.TRIGSEL = 5; //
+    AdcaRegs.ADCSOC0CTL.bit.CHSEL     = 3;       //SOC0 will convert pin A3 ---> current D
+    AdcaRegs.ADCSOC0CTL.bit.ACQPS     = acqps;
+    AdcaRegs.ADCSOC0CTL.bit.TRIGSEL   = 5;
 
-    AdcaRegs.ADCSOC1CTL.bit.CHSEL = 5;  //SOC1 will convert pin A5  --->current A
-    AdcaRegs.ADCSOC1CTL.bit.ACQPS = acqps; //
-    AdcaRegs.ADCSOC1CTL.bit.TRIGSEL = 5;
+    AdcaRegs.ADCSOC1CTL.bit.CHSEL     = 5;       //SOC1 will convert pin A5  --->current A
+    AdcaRegs.ADCSOC1CTL.bit.ACQPS     = acqps;
+    AdcaRegs.ADCSOC1CTL.bit.TRIGSEL   = 5;
 
-    AdcaRegs.ADCINTSEL1N2.bit.INT1SEL = 1; //end of SOC1 will set INT1 flag
-    AdcaRegs.ADCINTSEL1N2.bit.INT1E = 1;   //enable INT1 flag
-    AdcaRegs.ADCINTFLGCLR.bit.ADCINT1 = 1; //make sure INT1 flag is cleared
+    AdcaRegs.ADCINTSEL1N2.bit.INT1SEL = 1;       //end of SOC1 will set INT1 flag
+    AdcaRegs.ADCINTSEL1N2.bit.INT1E   = 1;       //enable INT1 flag
+    AdcaRegs.ADCINTFLGCLR.bit.ADCINT1 = 1;       //make sure INT1 flag is cleared
 
     EDIS;
 
     //ADCB
     EALLOW;
 
-    AdcbRegs.ADCSOC0CTL.bit.CHSEL = 3;  //SOC0 will convert pin A3 ---> current E
-    AdcbRegs.ADCSOC0CTL.bit.ACQPS = acqps; //
-    AdcbRegs.ADCSOC0CTL.bit.TRIGSEL = 5; //
+    AdcbRegs.ADCSOC0CTL.bit.CHSEL     = 3;       //SOC0 will convert pin A3 ---> current E
+    AdcbRegs.ADCSOC0CTL.bit.ACQPS     = acqps;
+    AdcbRegs.ADCSOC0CTL.bit.TRIGSEL   = 5;
 
-    AdcbRegs.ADCSOC1CTL.bit.CHSEL = 5;  //SOC1 will convert pin A5  --->current B
-    AdcbRegs.ADCSOC1CTL.bit.ACQPS = acqps; //
-    AdcbRegs.ADCSOC1CTL.bit.TRIGSEL = 5;
+    AdcbRegs.ADCSOC1CTL.bit.CHSEL     = 5;       //SOC1 will convert pin A5  --->current B
+    AdcbRegs.ADCSOC1CTL.bit.ACQPS     = acqps;
+    AdcbRegs.ADCSOC1CTL.bit.TRIGSEL   = 5;
 
-    AdcbRegs.ADCINTSEL1N2.bit.INT1SEL = 1; //end of SOC1 will set INT1 flag
-    AdcbRegs.ADCINTSEL1N2.bit.INT1E = 1;   //enable INT1 flag
-    AdcbRegs.ADCINTFLGCLR.bit.ADCINT1 = 1; //make sure INT1 flag is cleared
+    AdcbRegs.ADCINTSEL1N2.bit.INT1SEL = 1;       //end of SOC1 will set INT1 flag
+    AdcbRegs.ADCINTSEL1N2.bit.INT1E   = 0;       //disable INT1 flag
+    AdcbRegs.ADCINTFLGCLR.bit.ADCINT1 = 1;       //make sure INT1 flag is cleared
 
     EDIS;
 
     //ADCC
     EALLOW;
 
-    AdccRegs.ADCSOC0CTL.bit.CHSEL = 3;  //SOC0 will convert pin A3 ---> current F
-    AdccRegs.ADCSOC0CTL.bit.ACQPS = acqps; //
-    AdccRegs.ADCSOC0CTL.bit.TRIGSEL = 5; //
+    AdccRegs.ADCSOC0CTL.bit.CHSEL     = 3;       //SOC0 will convert pin A3 ---> current F
+    AdccRegs.ADCSOC0CTL.bit.ACQPS     = acqps;
+    AdccRegs.ADCSOC0CTL.bit.TRIGSEL   = 5;
 
-    AdccRegs.ADCSOC1CTL.bit.CHSEL = 5;  //SOC1 will convert pin A5  --->current C
-    AdccRegs.ADCSOC1CTL.bit.ACQPS = acqps; //
-    AdccRegs.ADCSOC1CTL.bit.TRIGSEL = 5;
+    AdccRegs.ADCSOC1CTL.bit.CHSEL     = 5;       //SOC1 will convert pin A5  --->current C
+    AdccRegs.ADCSOC1CTL.bit.ACQPS     = acqps;
+    AdccRegs.ADCSOC1CTL.bit.TRIGSEL   = 5;
 
-    AdccRegs.ADCINTSEL1N2.bit.INT1SEL = 1; //end of SOC1 will set INT1 flag
-    AdccRegs.ADCINTSEL1N2.bit.INT1E = 1;   //enable INT1 flag
-    AdccRegs.ADCINTFLGCLR.bit.ADCINT1 = 1; //make sure INT1 flag is cleared
+    AdccRegs.ADCINTSEL1N2.bit.INT1SEL = 1;       //end of SOC1 will set INT1 flag
+    AdccRegs.ADCINTSEL1N2.bit.INT1E   = 0;       //disable INT1 flag
+    AdccRegs.ADCINTFLGCLR.bit.ADCINT1 = 1;       //make sure INT1 flag is cleared
 
     EDIS;
-//    //
-//    EALLOW;
-//    //ADCD
-//    AdcdRegs.ADCSOC0CTL.bit.CHSEL = 3;  //SOC0 will convert pin D3 ---> current A
-//    AdcdRegs.ADCSOC0CTL.bit.ACQPS = acqps; //
-//    AdcdRegs.ADCSOC0CTL.bit.TRIGSEL = 5; //
-//
-//
-//    AdcdRegs.ADCSOC1CTL.bit.CHSEL = 1;  //SOC1 will convert pin D1  --->current B
-//    AdcdRegs.ADCSOC1CTL.bit.ACQPS = acqps; //
-//    AdcdRegs.ADCSOC1CTL.bit.TRIGSEL = 5;
-//
-//    AdcdRegs.ADCINTSEL1N2.bit.INT1SEL = 0x0; //end of SOC1 will set INT1 flag
-//    AdcdRegs.ADCINTSEL1N2.bit.INT1E = 1;   //enable INT1 flag
-//    AdcdRegs.ADCINTFLGCLR.bit.ADCINT1 = 1; //make sure INT1 flag is cleared
-//
-//    EDIS;
+
 }
 
 

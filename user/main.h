@@ -23,4 +23,13 @@
 
 extern float aaa;
 
+extern volatile float Val1;
+extern volatile float Val2;
+extern volatile float Val3;
+extern volatile float Val4;
+extern volatile float Val5;
+extern volatile float Val6;
+
+
+
 #endif /* USER_MAIN_H_ */

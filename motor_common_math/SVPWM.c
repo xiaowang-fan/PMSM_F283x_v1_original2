@@ -90,6 +90,9 @@ void SVPWM_PWM_GEN1(SVPWM_2L *p){
     EPwm1Regs.CMPA.bit.CMPA = p->PWM1out;
     EPwm2Regs.CMPA.bit.CMPA = p->PWM2out;
     EPwm3Regs.CMPA.bit.CMPA = p->PWM3out;
+//    EPwm1Regs.CMPA.bit.CMPA = 1;
+//    EPwm2Regs.CMPA.bit.CMPA = 9999;
+//    EPwm3Regs.CMPA.bit.CMPA = 9999;
 }
 
 void SVPWM_PWM_GEN2(SVPWM_2L *p){

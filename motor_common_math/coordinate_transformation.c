@@ -45,15 +45,22 @@ void CT_2S2R_angle_syn(CT_2S2R *p1,CT_3R2S *p2){
 
 void VSD_Transform(float i_abc1[3], float i_abc2[3], float angle, VSD* out)
 {
-//    float i_alpha = (i_abc1[0] - 0.5f * i_abc1[1] - 0.5f * i_abc1[2] +\
-//                     SQRT3_2 * i_abc2[0] - SQRT3_2 * i_abc2[1]) / 3 ;
-//    float i_beta  = (SQRT3_2 * i_abc1[1] - SQRT3_2 * i_abc1[2] +\
-//                     0.5f * i_abc2[0] + 0.5f * i_abc2[1] - i_abc2[2]) / 3 ;
-//    float s = sinf(angle);
-//    float c = cosf(angle);
+//    float I_alpha,I_beta;
+//    I_alpha = (         i_abc1[0] - 0.5f    * i_abc1[1] - 0.5f    * i_abc1[2] \
+//            + SQRT3_2 * i_abc2[0] - SQRT3_2 * i_abc2[1]                      ) / 3.0f;
+//    I_beta = (                      SQRT3_2 * i_abc1[1] - SQRT3_2 * i_abc1[2] \
+//            + 0.5f    * i_abc2[0] + 0.5f    * i_abc2[1] -           i_abc2[2]) / 3.0f;
 //
-//    out->I_d = i_alpha * c + i_beta * s;
-//    out->I_q =-i_alpha * s + i_beta * c;
+//
+//    out->I_d =  cosf(angle) * I_alpha + sinf(angle) * I_beta;
+//
+//    out->I_q = -sinf(angle) * I_alpha + cosf(angle) * I_beta;
+//
+//    out->I_x =        (          i_abc1[0] - 0.5f    * i_abc1[1] - 0.5f    * i_abc1[2] \
+//                     - SQRT3_2 * i_abc2[0] + SQRT3_2 * i_abc2[1]                      ) / 3.0f ;
+//    out->I_y =-1.0 *  (                    - SQRT3_2 * i_abc1[1] + SQRT3_2 * i_abc1[2] \
+//                     + 0.5f    * i_abc2[0] + 0.5f    * i_abc2[1] -           i_abc2[2]) / 3.0f ;
+
 
     out->I_d = (cosf(angle)*i_abc1[0] +\
            cosf(angle-2*PI/3)*i_abc1[1] +\
@@ -66,7 +73,7 @@ void VSD_Transform(float i_abc1[3], float i_abc2[3], float angle, VSD* out)
             sinf(angle+2*PI/3)*i_abc1[2] +\
             sinf(angle-PI/6)*i_abc2[0] +\
             sinf(angle-5*PI/6)*i_abc2[1]+\
-            sinf(angle*+PI/2)*i_abc2[2])/3;
+            sinf(angle+PI/2)*i_abc2[2])/3;
 
     out->I_x = (i_abc1[0] - 0.5f * i_abc1[1] - 0.5f * i_abc1[2] -\
                 SQRT3_2 * i_abc2[0] + SQRT3_2 * i_abc2[1]) / 3 ;

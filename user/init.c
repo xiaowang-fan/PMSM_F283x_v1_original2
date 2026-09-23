@@ -9,15 +9,19 @@
 
 
 float SQRT_R_3 = 0.57735;   //  sqrt(1/3)
-int CurrentOffsetA = 2004;
-int CurrentOffsetB = 2004;
+int CurrentOffsetA = 2095;
+int CurrentOffsetB = 2122;
 int CurrentOffsetC = 1999;
-int CurrentOffsetA1 = 2133;
+int CurrentOffsetAA = 2095;
+int CurrentOffsetBB = 2122;
+int CurrentOffsetAA2 = 2105;
+int CurrentOffsetBB2 = 2095;
+int CurrentOffsetA1 = 2130;
 int CurrentOffsetB1 = 2210;
 int CurrentOffsetC1 = 2093;
-int CurrentOffsetA2 = 2106;
+int CurrentOffsetA2 = 2085;
 int CurrentOffsetB2 = 2095;
-int CurrentOffsetC2 = 2110;
+int CurrentOffsetC2 = 2095;
 float CurrentCoef = 200 , CurrentCoef_p = 0;
 float CurrentCoef_A = 1.0, CurrentCoef_B = 1.0, CurrentCoef_C = 1.0;
 
@@ -25,10 +29,11 @@ int Current_regA = 0, Current_regB = 0, Current_regC = 0;
 int Current_regA1 = 0, Current_regB1 = 0, Current_regC1 = 0;
 int Current_regA2 = 0, Current_regB2 = 0, Current_regC2 = 0;
 float Ia = 0, Ib = 0, Ic = 0;
+float IA = 0, IB = 0, IC = 0;
 
-float Udc = 100.0, Imax = 2.0, U_svMax = 6.0, SpeedMax = 100.0, Uz_Max = 0;
+float Udc = 100.0, Imax = 3.0, U_svMax = 8.0, SpeedMax = 100.0, Uz_Max = 0;
 char SPEED_LOOP = 10;
-char POSITION_LOOP = 100;
+char POSITION_LOOP = 10;
 char SV_protect = 0;
 
 //int encoder_offset = 370; //直接在结构体里面修改即可
@@ -62,12 +67,15 @@ void init_control_para(){
     CurrentCoef_p = 1.0F/CurrentCoef;
     U_svMax = Udc * SQRT_R_3;
 
+//
+//    Pos_Speed.k1 = 0.995; //0.998
+//    Pos_Speed.k2 = 0.005;
 
-    Pos_Speed.k1 = 0.995; //0.998
-    Pos_Speed.k2 = 0.005;
+    Pos_Speed.k1 = 0.9; //0.998
+    Pos_Speed.k2 = 0.1;
 
     POS.Ki = 0.0;
-    POS.Kp = 3.0;
+    POS.Kp = 0.8;
     POS.OutMax = SpeedMax;
     POS.OutMin = - SpeedMax;
 
@@ -79,7 +87,7 @@ void init_control_para(){
     ACR_q.syn(&ACR_q, &ACR_d);
 
     ACR_x.Kp = 1;//0.05;//0.1;//0.9;//0.9;//5;//10      //0.9
-    ACR_x.Ki = 0.1;//.02;//0.001;//.09;
+    ACR_x.Ki = 0.0f;//.02;//0.001;//.09;
     ACR_x.OutMax = U_svMax;
     ACR_x.OutMin = - ACR_d.OutMax;
 
@@ -90,40 +98,6 @@ void init_control_para(){
     ASR.Ki = 0.003;   //0.0022
     ASR.OutMax = Imax;
     ASR.OutMin = - Imax;
-
-    ASR_ESO.Ts = 1e-4;
-    ACR_ESO_d.Ts = 1e-4;
-    ACR_ESO_q.Ts = 1e-4;
-
-    ACR_id_ref_LPF.k1 = 0.92;//0.97;
-
-    ASR_QR.zeta1 = 0.15;
-    ASR_QR.zeta2 = 0.01;
-    ASR_QR.Ts = 1e-4;
-    ASR_QR.w = 80.0 *2*PI;// 480rpm *5 *2 /60  , 2倍波动
-    ASR_QR.para(&ASR_QR);
-
-    ACR_d_QR.zeta1 = 10.0;
-    ACR_d_QR.zeta2 = 0.01;
-    ACR_d_QR.Ts = 1e-4;
-    ACR_d_QR.w = 80.0 *6*PI;
-    ACR_d_QR.para(&ACR_d_QR);
-
-    ACR_q_QR.zeta1 = 550.0;
-    ACR_q_QR.zeta2 = 0.0001;
-    ACR_q_QR.Ts = 1e-4;
-    ACR_q_QR.w = 80.0 *6*PI;
-    ACR_q_QR.para(&ACR_q_QR);
-
-
-
-    Dual_obs_id.l = 10.0;
-    Dual_obs_iq.l = 10.0;
-    Dual_obs_wm.l = 10.0;
-    Dual_obs_id.Ts = 1e-4;
-    Dual_obs_iq.Ts = 1e-4;
-    Dual_obs_wm.Ts = 1e-4;
-
 
 //    Pos_Speed.cal_angle = encoder_offset;
     SVpwm1.Udc = Udc;

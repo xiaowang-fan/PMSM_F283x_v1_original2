@@ -51,6 +51,7 @@
 									<listOptionValue builtIn="false" value="${workspace_loc:/${ProjName}/TI/common/include}"/>
 									<listOptionValue builtIn="false" value="${workspace_loc:/${ProjName}/TI/headers/include}"/>
 									<listOptionValue builtIn="false" value="${workspace_loc:/${ProjName}/peripheral}"/>
+									<listOptionValue builtIn="false" value="${workspace_loc:/${ProjName}/identify}"/>
 									<listOptionValue builtIn="false" value="${CG_TOOL_ROOT}/include"/>
 								</option>
 								<option id="com.ti.ccstudio.buildDefinitions.C2000_22.6.compilerID.ADVICE__PERFORMANCE.338735395" name="Provide advice on optimization techniques (--advice:performance)" superClass="com.ti.ccstudio.buildDefinitions.C2000_22.6.compilerID.ADVICE__PERFORMANCE" value="--advice:performance=all" valueType="string"/>

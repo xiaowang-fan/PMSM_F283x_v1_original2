@@ -15,11 +15,22 @@
 #include "Control_QPR.h"
 #include <math.h>
 #include <stdio.h>
-#include "../../PMSM_F283x_v1_original2/BSP/ADC_init.h"
-#include "../../PMSM_F283x_v1_original2/BSP/DAC_init.h"
-#include "../../PMSM_F283x_v1_original2/communication/CAN_protocol.h"
+#include "ADC_init.h"
+#include "DAC_init.h"
+#include "CAN_protocol.h"
 
 extern float PI;
+/*  --------------------------- external parameter --------------------------- */
+extern float external_r;
+extern float external_Lo;
+extern float external_d;
+extern float external_theta;
+extern float external_encoder_offset;
+extern float motor_encoder_offset;
+extern float arm_angle;
+extern float x_l;
+extern float x_m;
+
 /*  --------------------------- motor --------------------------- */
 typedef struct {
     float L;
@@ -37,13 +48,14 @@ extern motor_parameter PMSM;
 
 /*  --------------------------- Encoder --------------------------- */
 
-
 extern POSSPEED Pos_Speed;
 
 /*  --------------------------- Communication  --------------------------- */
 
 extern char *mes_p;
 extern float mesg[9];
+extern volatile int tx_ready; // 发送允许标志
+
 
 /*  --------------------------- Operating Mode  --------------------------- */
 
@@ -82,6 +94,8 @@ extern float omega_ek;
 extern float pos_offset;
 extern float pos_feedback;
 extern bool pos_flag;
+
+extern float u_alpha,u_beta,u_A1,u_B1,u_A2,u_B2,u_x,u_y;
 
 /*  --------------------------- Times --------------------------- */
 #define Run_time_DEFAULTS {0, 0, 0, 0, 0,(void (*)(long))Run_time_cal}

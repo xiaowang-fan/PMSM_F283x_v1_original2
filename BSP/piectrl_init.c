@@ -27,7 +27,9 @@ void Init_PieCtrl()
         /* assign interrupt vector */
 
         EALLOW;
+        PieVectTable.ADCA1_INT = &adca1_isr;    //ADCA interrupt
         PieVectTable.EPWM1_INT = &epwm1_isr;    //EPWM1 interrupt
+        PieVectTable.SCIB_RX_INT = &scib_isr;    //EPWM1 interrupt
 //        PieVectTable.CANA0_INT = &cana_rx_isr;  //CANA_RX interrupt
 //        PieVectTable.CANB0_INT = &canb_rx_isr;  //CANA_RX interrupt
 //        PieVectTable.XINT1_INT = &fault_isr;    //fault interrupt
@@ -39,6 +41,16 @@ void Init_PieCtrl()
 
         IER |= M_INT3;
         PieCtrlRegs.PIEIER3.bit.INTx1 = 1;
+
+        /* enable SCIB interrupt */
+
+        IER |= M_INT9;
+        PieCtrlRegs.PIEIER9.bit.INTx3 = 1;
+
+        /* enable ADCA1 interrupt */
+
+        IER |= M_INT1;
+        PieCtrlRegs.PIEIER1.bit.INTx1 = 1;
 
         /* enable CANA & CANB interrupt */
 //
